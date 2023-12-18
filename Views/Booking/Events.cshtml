@@ -1,0 +1,14 @@
+﻿@model EventsClient.Models.ViewModels.HomeVM
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="container pt-5">
+    <div class="row">
+        @foreach (var e in Model.Events)
+        {
+            <partial name="_IndividualEventCard" model="e" />
+        }
+    </div>
+</div>

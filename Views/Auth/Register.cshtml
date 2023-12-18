@@ -1,0 +1,22 @@
+﻿@model EventsClient.Models.User
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = "_Layout2";
+}
+
+<div class="container" style="width: 350px;">
+    <div class="login-container">
+        <h4>TicketPulse</h4>
+        <h2>Welcome!</h2>
+        <p>Create an account</p>
+
+        <form id="login-form" method="post">
+            <input asp-for="Username" type="text" placeholder="Email" required style="margin-bottom:10px;">
+            <input asp-for="Password" type="password" placeholder="Password" required style="margin-bottom:10px;">
+            <button type="submit">Register</button>
+        </form>
+
+        <p class="switch-link">Have an account? <a asp-area="" asp-controller="Auth" asp-action="Index">Log in here</a></p>
+    </div>
+</div>

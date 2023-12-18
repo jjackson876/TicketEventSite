@@ -1,0 +1,145 @@
+﻿@model EventsClient.Models.ViewModels.SummaryVM
+
+@{
+    ViewData["Title"] = "Booking Summary";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Order Summary</h3>
+            <div id="carouselExampleSlidesOnly" class="carousel slide pb-3 my-carousel" data-ride="carousel">
+                @* style="max-height: 100%; margin: auto;" *@
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img class="d-block" src="@Model.Events.PromoImage" alt="First slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block" src="@Model.Events.PromoImage2" alt="Second slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block" src="@Model.Events.PromoImage3" alt="Third slide">
+                    </div>
+                </div>
+            </div>
+
+            <p><strong>Event Name:</strong> @Model.Events.EventName</p>
+            <p><strong>Event Date:</strong> @Model.Events.EventDate.ToString("dddd, MMM d")</p>
+            <p><strong>Event Location:</strong> @Model.Events.EventLocation</p>
+            <br />
+
+            <h5>Tickets:</h5>
+            @for (var i = 0; i < Model.ListOfTickets.Count; i++)
+            {
+                <p><strong>@Model.ListOfTickets[i].TicketType</strong> | @Model.ListOfTickets[i].Quantity Tickets</p>
+            }
+        </div>
+        <div class="col-md-6 payment-block position-fixed top-50 start-50 translate-middle-y">
+            <div class="content-container">
+                <form asp-controller="Home" asp-action="DeletePartial" method="post">
+                    <button type="submit" class="btn btn-danger btn-square position-fixed top-0 end-0 m-3">
+                        <i class="fas fa-times text-white"></i>
+                    </button>
+                    <input type="hidden" name="id" value="@Model.Bookings.Id" />
+                </form>
+                <h3>Payment Information</h3>
+                <form method="post" asp-action="Summary" id="summaryform">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <input type="hidden" name="bId" value="@Model.Bookings.Id" />
+
+                    <!-- Form fields with Bootstrap styling -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="FirstName">First Name</label>
+                                <input asp-for="@Model.FirstName" type="text" class="form-control" id="FirstName" name="FirstName" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="LastName">Last Name</label>
+                                <input asp-for="@Model.LastName"  type="text" class="form-control" id="LastName" name="LastName" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="PhoneNumber">Phone Number</label>
+                                <input asp-for="@Model.PhoneNumber"  type="text" class="form-control" id="PhoneNumber" name="PhoneNumber" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="Email">Email</label>
+                                <input asp-for="@Model.Email" type="text" class="form-control" id="Email" name="Email" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="CCardNumber">Card Number</label>
+                        <input asp-for="@Model.CCardNumber" type="text" class="form-control" id="CCardNumber" name="CCardNumber" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="CCardExpDate">Expiration Date</label>
+                                <input asp-for="@Model.CCardExpDate" type="date" class="form-control" id="CCardExpDate" name="CCardExpDate" placeholder="MM/YY" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="CCardCVV">Security Code</label>
+                                <input asp-for="@Model.CCardCVV" type="text" class="form-control" id="CCardCVV" name="CCardCVV" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12 col-md-6 pb-1">
+                            <a asp-action="Details" class="btn btn-success btn-square form-control btn-lg">Back</a>
+                            @* <form asp-controller="Home" asp-action="DeletePartialReturnToDetails" method="post">
+                                <button type="submit" class="btn btn-success btn-square form-control btn-lg">
+                                    Back
+                                </button>
+                                <input type="hidden" name="id" value="@Model.Bookings.Id" />
+                            </form> *@
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <input type="submit" class="btn btn-success btn-square form-control btn-lg"
+                            id="submitbutton">
+                            </input>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    $('.carousel').carousel({
+        interval: 2000, // Adjust the interval (in milliseconds) between slides (5000ms = 5 seconds in this example)
+        wrap: true // Set to true to allow continuous cycling (default is true)
+    });
+
+    document.getElementById('submitbutton').addEventListener('click', function (event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        // Show SweetAlert
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Booking Complete",
+            showConfirmButton: false,
+            timer: 1500
+        }).then(function () {
+            // After the SweetAlert is closed, submit the form
+            document.getElementById('summaryform').submit();
+        });
+    });
+
+</script>

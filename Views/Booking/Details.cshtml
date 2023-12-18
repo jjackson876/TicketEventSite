@@ -1,0 +1,262 @@
+﻿@model EventsClient.Models.ViewModels.DetailsVM
+
+@{
+    ViewData["Title"] = "Buy Tickets";
+}
+
+<div class="container pt-4">
+    <div class="card">
+        <form method="post" asp-action="Details">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="card-header bg-dark text-light">
+                <h3>@Model.Events.EventName</h3>
+                <h4 class="text-info">@Model.Events.EventDate.ToString("dddd, MMM d")</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-lg-4">
+                        <div id="carouselExampleSlidesOnly" class="carousel slide my-carousel2" data-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img class="d-block" src="@Model.Events.PromoImage" alt="First slide">
+                                </div>
+                                <div class="carousel-item">
+                                    <img class="d-block" src="@Model.Events.PromoImage2" alt="Second slide">
+                                </div>
+                                <div class="carousel-item">
+                                    <img class="d-block" src="@Model.Events.PromoImage3" alt="Third slide">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-8">
+                        <div class="row justify-content-between">
+                            <div class="col-12">
+                                <span class="badge p-3 border" style="background-color: #588157; font-size: 13px;">@Model.Events.EventLocation</span>
+                                <span class="badge p-3 border" style="background-color: #a3b18a; font-size: 13px;">@Model.Events.EventDesc</span>
+                            </div>
+                            <!-- Outlet Lists -->
+                            @if (Model.Outlets == null)
+                            {
+
+                            }
+                            else
+                            {
+                                <div class="row mt-2">
+                                    <div class="col-12">
+                                        <h6 class="mb-1">Outlet:</h6>
+                                        @foreach (var outlet in Model.Outlets)
+                                        {
+                                            <div class="d-flex justify-content-between">
+                                                <span class="font-size: 10px;">@outlet.OutletName</span>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            }
+
+                            <!-- Sponsor Lists -->
+                            @if (Model.Sponsors == null)
+                            {
+
+                            }
+                            else
+                            {
+                                <div class="row mt-2">
+                                    <div class="col-12">
+                                        <h6 class="mb-1">Sponsor:</h6>
+                                        @foreach (var sponsor in Model.Sponsors)
+                                        {
+                                            <div class="d-flex justify-content-between">
+                                                <span class="font-size: 10px;">@sponsor.EventSponsor</span>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            }
+
+
+                            <!-- Music Lists -->
+                            @if (Model.Musics == null)
+                            {
+
+                            }
+                            else
+                            {
+                                <div class="row mt-2">
+                                    <div class="col-12">
+                                        <h6 class="mb-1">Music:</h6>
+                                        @foreach (var music in Model.Musics)
+                                        {
+                                            <div class="d-flex justify-content-between">
+                                                <span class="font-size: 10px;">@music.MusicProvider</span>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 ml-5 pt-3">
+                <div class="row mt-2 pb-3 px-4">
+                    <div class="col-12">
+                        <section>
+                            @* CARD STYLE *@
+                            <h6>Admission:</h6>
+                            <div class="row">
+                                @for (int i = 0; i < Model.Admissions.Count; i++)
+                                {
+                                    @if (Model.Admissions[i].IsNotPurchasable != true)
+                                    {
+                                        <div class="col-12 col-md-6 col-lg-4 mb-3">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h6 class="card-title">
+                                                        @Model.Admissions[i].AdmissionType
+                                                        <span class="badge badge-info">
+                                                            <span id="quantityDisplay_@i">
+                                                                @Model.Admissions[i].Quantity
+                                                            </span>
+                                                            <span>
+                                                                Tickets Remaining
+                                                            </span>
+                                                        </span>
+
+                                                    </h6>
+                                                    <p class="card-text">$@Model.Admissions[i].Price</p>
+
+                                                    <div class="d-flex">
+                                                        <button type="button" class="btn btn-sm btn-success" onclick="incrementInput(this)">
+                                                            +
+                                                        </button> &nbsp;
+
+                                                        <input asp-for="@Model.TicketAmount"
+                                                               type="number"
+                                                               class="form-control form-control-sm quantity-input"
+                                                               style="width: 50px;"
+                                                               value="0"
+                                                               min="0"
+                                                               step="1"> &nbsp;
+
+                                                        <button type="button" class="btn btn-sm btn-danger" onclick="decrementInput(this)">
+                                                            -
+                                                        </button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-12 col-md-6 col-lg-4 mb-3 disabled-card">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h6 class="card-title">
+                                                        @Model.Admissions[i].AdmissionType
+                                                    </h6>
+                                                    <p class="card-text">$@Model.Admissions[i].Price</p>
+                                                    <div class="d-flex">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                    </div>
+                </div>
+                <div class="centered-container">
+                    <p class="btn btn-success disabled">Total: $<span id="total">0.00</span></p>
+                </div>
+            </div>
+            <div class="card-footer bg-dark">
+                <!-- Back and Book Buttons -->
+                <div class="row mt-2">
+                    <div class="col-12 col-md-6 pb-1">
+                        <a asp-action="Index" class="btn btn-success btn-square form-control btn-lg">Back</a>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <input type="submit" class="btn btn-success btn-square form-control btn-lg">
+                        Book
+                        </input>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+
+    $('.carousel').carousel({
+        interval: 2000, // Adjust the interval (in milliseconds) between slides (5000ms = 5 seconds in this example)
+        wrap: true // Set to true to allow continuous cycling (default is true)
+    });
+
+    function incrementInput(button) {
+        var cardBody = button.closest('.card-body');
+        var input = cardBody.querySelector('.quantity-input');
+        var value = parseInt(input.value, 10);
+        var admissionQuantityDisplay = cardBody.querySelector('.badge-info span');
+        var availableQuantity = parseInt(admissionQuantityDisplay.textContent, 10);
+
+        if (availableQuantity > 0) {
+            input.value = value + 1;
+            admissionQuantityDisplay.textContent = availableQuantity - 1;
+            updateTotal();
+        }
+    }
+
+
+
+    function decrementInput(button) {
+        var cardBody = button.closest('.card-body');
+        var input = cardBody.querySelector('.quantity-input');
+        var value = parseInt(input.value, 10);
+
+        if (value > 0) {
+            input.value = value - 1;
+            var index = Array.from(document.querySelectorAll('.quantity-input')).indexOf(input);
+            var admissionQuantityDisplay = cardBody.querySelector('.badge-info span');
+            admissionQuantityDisplay.textContent = parseInt(admissionQuantityDisplay.textContent, 10) + 1;
+            updateTotal();
+        }
+    }
+
+    function updateQuantityDisplay(input) {
+        var cardBody = input.closest('.card-body');
+        var index = Array.from(cardBody.querySelectorAll('.quantity-input')).indexOf(input);
+        var quantityDisplay = cardBody.querySelector('.badge-info span');
+        quantityDisplay.textContent = input.value + ' Tickets';
+    }
+
+    function updateTotal() {
+        var total = 0;
+        var inputs = document.querySelectorAll('.quantity-input');
+        var prices = document.querySelectorAll('.card-text');
+
+        for (var i = 0; i < inputs.length; i++) {
+            var card = inputs[i].closest('.card');
+            if (!card.classList.contains('disabled-card')) {
+                total += parseFloat(inputs[i].value) * parseFloat(prices[i].textContent.replace('$', '')); // Remove the '$' before parsing
+            }
+        }
+
+        var totalElement = document.getElementById('total');
+        totalElement.textContent = total.toFixed(2);
+    }
+
+    var quantityInputs = document.querySelectorAll('.quantity-input');
+    quantityInputs.forEach(function (input) {
+        input.addEventListener('input', function () {
+            updateQuantityDisplay(input);
+            updateTotal();
+        });
+    });
+
+    updateTotal(); // Calculate the initial total
+
+</script>

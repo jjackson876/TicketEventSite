@@ -1,0 +1,107 @@
+﻿@using EventsClient.Utils
+@using Microsoft.AspNetCore.Http@*
+@inject IHttpContextAccessor HttpContextAccessor *@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - TicketPulse</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site2.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/EventsClient.styles.css" asp-append-version="true" />
+    <script src="https://kit.fontawesome.com/db61d5efa5.js" crossorigin="anonymous"></script>
+    <!-- Add these links in the head section of your HTML file -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-lBcXr+UWHTPhZLob597SVK42tVPi1p3iKQVlZt/KlAAK5C+1AgKFgff9FclMRzmv" crossorigin="anonymous">
+    @* <script src="sweetalert2.all.min.js"></script> *@
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TicketPulse</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="EventListing" asp-action="Index">Event Creator</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Booking" asp-action="Index">Booking Summary</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Booking" asp-action="Events">Event</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+                        </li>
+                    </ul>
+
+
+                    @if (Context.Session.GetString("SessionAuth") == null)
+                    {
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Register">Register</a> 
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Index">Log In</a>
+                    }
+                    else
+                    {
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="LogOut">
+                            <i class="fa-solid fa-right-from-bracket" style="margin-right: 10px;"></i>Log Out
+                        </a>
+                    }
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container-fluid" style="padding-bottom: 230px;">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    @*     <footer class="footer text-muted" style="margin-top: 30px;">
+    <div class="container text-center">
+    <div class="row d-flex">
+    <div class="col-md-4" style="margin: 0px 20px;">
+    <h5>About Us</h5>
+    <p>Discover exciting events and connect with a community of enthusiasts at TicketPulse. Explore a world of entertainment and shared experiences.</p>
+    </div>
+    <div class="col-md-4" style="margin:auto">
+    <h5>Contact Us</h5>
+    <p>Email: info@yourwebsite.com</p>
+    <p>Phone: +1 (555) 123-4567</p>
+    </div>
+    <div class="col-md-4" style="margin:auto">
+    <h5>Follow Us</h5>
+    <p>Stay updated on the latest events. Follow us on social media for news, highlights, and behind-the-scenes moments.</p>
+    <ul class="list-inline">
+    <li class="list-inline-item"><a href="#">Facebook</a></li>
+    <li class="list-inline-item"><a href="#">Twitter</a></li>
+    <li class="list-inline-item"><a href="#">Instagram</a></li>
+    </ul>
+    </div>
+    </div>
+    <div class="row text-center">
+    <div class="col-12 mt-3">
+    <p class="text-center">© 2023 [Your Website Name]. All rights reserved.</p>
+    </div>
+    </div>
+    </div>
+    </footer>
+    *@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

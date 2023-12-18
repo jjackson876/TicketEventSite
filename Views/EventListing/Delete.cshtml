@@ -1,0 +1,100 @@
+﻿@model EventsClient.Models.ViewModels.DetailsVM
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="container pt-4">
+    <div class="card">
+        <form method="post">
+            <div class="card-header bg-dark text-light">
+                <h3>@Model.Events.EventName</h3>
+                <h4 class="text-info">@Model.Events.EventDate.ToString("dddd, MMM d")</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-lg-4">
+                        <img src="@Model.Events.PromoImage" width="100%" class="rounded" />
+                    </div>
+                    <div class="col-12 col-lg-8">
+                        <div class="row justify-content-between">
+                            <div class="col-12">
+                                <span class="badge p-3 border" style="background-color: #588157; font-size: 13px;">@Model.Events.EventLocation</span>
+                                <span class="badge p-3 border" style="background-color: #a3b18a; font-size: 13px;">@Model.Events.EventDesc</span>
+                            </div>
+                            <!-- Outlet Lists -->
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <h6 class="mb-1">Outlet:</h6>
+                                    @foreach (var outlet in Model.Outlets)
+                                    {
+                                        <div class="d-flex justify-content-between">
+                                            <span class="font-size: 10px;">@outlet.OutletName</span>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                            <!-- Sponsor Lists -->
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <h6 class="mb-1">Sponsor:</h6>
+                                    @foreach (var sponsor in Model.Sponsors)
+                                    {
+                                        <div class="d-flex justify-content-between">
+                                            <span class="font-size: 10px;">@sponsor.EventSponsor</span>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                            <!-- Music Lists -->
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <h6 class="mb-1">Music:</h6>
+                                    @foreach (var music in Model.Musics)
+                                    {
+                                        <div class="d-flex justify-content-between">
+                                            <span class="font-size: 10px;">@music.MusicProvider</span>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-12 ml-5 pt-3">
+                                <div class="row mt-2 pb-3 px-4">
+                                    <div class="col-12">
+                                        <h6>Admission:</h6>
+                                        <div class="row">
+                                            @for (int i = 0; i < Model.Admissions.Count; i++)
+                                            {
+                                                <div class="col-12 col-md-6 col-lg-4 mb-3">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <h6 class="card-title">@Model.Admissions[i].AdmissionType</h6>
+                                                            <p class="card-text">@Model.Admissions[i].Price</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer bg-dark">
+                <!-- Back and Delete Buttons -->
+                <div class="row mt-2">
+                    <div class="col-12 col-md-6 pb-1">
+                        <a asp-action="Index" class="btn btn-success btn-square form-control btn-lg">Back</a>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <input type="submit" value="Delete" class="btn btn-danger btn-square form-control btn-lg">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

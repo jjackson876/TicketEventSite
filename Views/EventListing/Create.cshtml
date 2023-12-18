@@ -1,0 +1,376 @@
+﻿@model EventsClient.Models.DTOs.EvHeaderCreateDTO
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="card">
+    <div class="card-header bg-success text-uppercase text-white text-center" style="height: 40px;">
+        <h6>Add An Event - Create</h6>
+    </div>
+
+    <form method="post" asp-action="Create" enctype="multipart/form-data" class="px-2 pt-2">
+        <div class="row col-12">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group col-2">
+                <label asp-for="EventName" class="control-label">Event Name</label>
+            </div>
+            <div class="form-group col-3">
+                <input asp-for="EventName" class="form-control" />
+                <span asp-validation-for="EventName" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group col-2">
+            </div>
+
+
+            <div class="form-group col-2">
+                <label asp-for="EventLocation" class="control-label">Event Location</label>
+            </div>
+            <div class="form-group col-3">
+                <input asp-for="EventLocation" class="form-control" />
+                <span asp-validation-for="EventLocation" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-2">
+                <label asp-for="EventDate" class="control-label">Event Date</label>
+            </div>
+            <div class="form-group col-3">
+                <input asp-for="EventDate" class="form-control" />
+                <span asp-validation-for="EventDate" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group col-2">
+            </div>
+
+
+            <div class="form-group col-2">
+                <label asp-for="EventDesc" class="control-label">Event Description</label>
+            </div>
+            <div class="form-group col-3">
+                <input asp-for="EventDesc" class="form-control" />
+                <span asp-validation-for="EventDesc" class="text-danger"></span>
+            </div>
+
+
+            @* <div class="form-group col-2">
+            </div> *@
+
+            <div class="form-group col-2">
+                <label asp-for="SelectedCategoryId" class="control-label">Event Category</label>
+            </div>
+            <div class="form-group col-3">
+                <select asp-for="SelectedCategoryId" asp-items="@Model.CategoryList" class="form-control">
+                    <option disabled selected>Event Category</option>
+                </select>
+                <span asp-validation-for="SelectedCategoryId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="PromoImage">Promo Image:</label>
+                <input type="file" name="PromoImage" id="PromoImage" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="PromoImage2">Promo Image 2:</label>
+                <input type="file" name="PromoImage2" id="PromoImage2" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="PromoImage3">Promo Image 3:</label>
+                <input type="file" name="PromoImage3" id="PromoImage3" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="Permit">Permit:</label>
+                <input type="file" name="Permit" id="Permit" class="form-control">
+            </div>
+
+            <div class="col-12 ml-5 pt-3">
+                <table id="AdmissionTable" class="table table-borderless table-sm mb-0 b-0">
+                    <thead>
+                        <tr>
+                            <th>Admission Type</th>
+                            <th>Admission Price</th>
+                            <th>Ticket Quantity</th>
+                            <th>Purchasable?</th>
+                            <th style="width: 60px;">
+                                <button id="btnAddDetailRow" type="button" class="btn btn-sm btn-secondary visible" onclick="AddItem1(this)">
+                                    Add
+                                </button>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.Admission.Count; i++)
+                        {
+                            <tr>
+                                <td>
+                                    <input asp-for="@Model.Admission[i].AdmissionType" class="form-control" id="AdmissionType_@i" name="Admission[@i].AdmissionType" />
+                                    <span asp-validation-for="@Model.Admission[i].AdmissionType" class="text-danger"></span>
+                                </td>
+                                <td>
+                                    <input asp-for="@Model.Admission[i].Price" class="form-control" id="AdmissionPrice_@i" name="Admission[@i].Price" />
+                                    <span asp-validation-for="@Model.Admission[i].Price" class="text-danger"></span>
+                                </td>
+                                <td>
+                                    <input asp-for="@Model.Admission[i].Quantity" class="form-control" id="AdmissionQuantity_@i" name="Admission[@i].Quantity" />
+                                    <span asp-validation-for="@Model.Admission[i].Quantity" class="text-danger"></span>
+                                </td>
+                                <td>
+                                    <input type="radio" asp-for="@Model.Admission[i].IsNotPurchasable" id="IsNotPurchasable_@i" name="IsNotPurchasable" value="true" />
+                                    <span asp-validation-for="@Model.Admission[i].IsNotPurchasable" class="text-danger"></span>
+                                </td>
+                                <th style="width: 60px;">
+                                    <button id="btnRemove" type="button" class="btn btn-sm btn-danger visible" onclick="deleteRow1(this)">
+                                        Delete
+                                    </button>
+                                </th>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-12 ml-5">
+                <table id="MusicTable" class="table table-borderless table-sm mb-0 b-0">
+                    <thead>
+                        <tr>
+                            <th>Music Provider</th>
+                            <th style="width: 60px;">
+                                <button id="btnAddDetailRow" type="button" class="btn btn-sm btn-secondary visible" onclick="AddItem2(this)">
+                                    Add
+                                </button>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.Music.Count; i++)
+                        {
+                            <tr>
+                                <td>
+                                    <input asp-for="@Model.Music[i].MusicProvider" class="form-control" id="MusicProvider_@i" name="Music[@i].MusicProvider" />
+                                    <span asp-validation-for="@Model.Music[i].MusicProvider" class="text-danger"></span>
+                                </td>
+                                <th style="width: 60px;">
+                                    <button id="btnRemove" type="button" class="btn btn-sm btn-danger visible" onclick="deleteRow2(this)">
+                                        Delete
+                                    </button>
+                                </th>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-12 ml-5">
+                <table id="OutletTable" class="table table-borderless table-sm mb-0 b-0">
+                    <thead>
+                        <tr>
+                            <th>Ticket Outlets</th>
+                            <th style="width: 60px;">
+                                <button id="btnAddDetailRow" type="button" class="btn btn-sm btn-secondary visible" onclick="AddItem3(this)">
+                                    Add
+                                </button>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.Outlet.Count; i++)
+                        {
+                            <tr>
+                                <td>
+                                    <input asp-for="@Model.Outlet[i].OutletName" class="form-control" id="OutletName_@i" name="Outlet[@i].OutletName" />
+                                    <span asp-validation-for="@Model.Outlet[i].OutletName" class="text-danger"></span>
+                                </td>
+                                <th style="width: 60px;">
+                                    <button id="btnRemove" type="button" class="btn btn-sm btn-danger visible" onclick="deleteRow3(this)">
+                                        Delete
+                                    </button>
+                                </th>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-12 ml-5">
+                <table id="SponsorTable" class="table table-borderless table-sm mb-0 b-0">
+                    <thead>
+                        <tr>
+                            <th>Event Sponsors</th>
+                            <th style="width: 60px;">
+                                <button id="btnAddDetailRow" type="button" class="btn btn-sm btn-secondary visible" onclick="AddItem4(this)">
+                                    Add
+                                </button>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.Sponsor.Count; i++)
+                        {
+                            <tr>
+                                <td>
+                                    <input asp-for="@Model.Sponsor[i].EventSponsor" class="form-control" id="EventSponsor_@i" name="Sponsor[@i].EventSponsor" />
+                                    <span asp-validation-for="@Model.Sponsor[i].EventSponsor" class="text-danger"></span>
+                                </td>
+                                <th style="width: 60px;">
+                                    <button id="btnRemove" type="button" class="btn btn-sm btn-danger visible" onclick="deleteRow4(this)">
+                                        Delete
+                                    </button>
+                                </th>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="form-group btn-group row pt-2 pb-2">
+                <div class="col">
+                    <a class="btn btn-secondary w-100" asp-action="Index">
+                        Back
+                    </a>
+                </div>
+                <div class="col">
+                    <input type="submit" value="Create" class="btn btn-success w-100" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<script>
+
+    function AddItem1(btn) {
+        var table = document.getElementById('AdmissionTable');
+        var tbody = table.getElementsByTagName('tbody')[0];
+        var rows = tbody.getElementsByTagName('tr');
+        var lastRow = rows[rows.length - 1];
+        var newRow = lastRow.cloneNode(true);
+        var inputs = newRow.getElementsByTagName('input');
+
+        var nextrowIdx = rows.length;
+
+        for (var i = 0; i < inputs.length; i++) {
+            var id = inputs[i].id;
+            var name = inputs[i].name;
+
+            id = id.replace('_' + (nextrowIdx - 1) + '_', '_' + nextrowIdx + '_');
+            name = name.replace('[' + (nextrowIdx - 1) + ']', '[' + nextrowIdx + ']');
+
+            inputs[i].id = id;
+            inputs[i].name = name;
+            inputs[i].value = '';
+        }
+
+        tbody.appendChild(newRow);
+    }
+
+    function deleteRow1(button) {
+        var row = button.parentNode.parentNode;
+
+        row.parentNode.removeChild(row);
+    }
+
+    function AddItem2(btn) {
+        var table = document.getElementById('MusicTable');
+        var tbody = table.getElementsByTagName('tbody')[0];
+        var rows = tbody.getElementsByTagName('tr');
+        var lastRow = rows[rows.length - 1];
+        var newRow = lastRow.cloneNode(true);
+        var inputs = newRow.getElementsByTagName('input');
+
+        var nextrowIdx = rows.length;
+
+        for (var i = 0; i < inputs.length; i++) {
+            var id = inputs[i].id;
+            var name = inputs[i].name;
+
+            id = id.replace('_' + (nextrowIdx - 1) + '_', '_' + nextrowIdx + '_');
+            name = name.replace('[' + (nextrowIdx - 1) + ']', '[' + nextrowIdx + ']');
+
+            inputs[i].id = id;
+            inputs[i].name = name;
+            inputs[i].value = '';
+        }
+
+        tbody.appendChild(newRow);
+    }
+
+    function deleteRow2(button) {
+        var row = button.parentNode.parentNode;
+
+        row.parentNode.removeChild(row);
+    }
+
+    function AddItem3(btn) {
+        var table = document.getElementById('OutletTable');
+        var tbody = table.getElementsByTagName('tbody')[0];
+        var rows = tbody.getElementsByTagName('tr');
+        var lastRow = rows[rows.length - 1];
+        var newRow = lastRow.cloneNode(true);
+        var inputs = newRow.getElementsByTagName('input');
+
+        var nextrowIdx = rows.length;
+
+        for (var i = 0; i < inputs.length; i++) {
+            var id = inputs[i].id;
+            var name = inputs[i].name;
+
+            id = id.replace('_' + (nextrowIdx - 1) + '_', '_' + nextrowIdx + '_');
+            name = name.replace('[' + (nextrowIdx - 1) + ']', '[' + nextrowIdx + ']');
+
+            inputs[i].id = id;
+            inputs[i].name = name;
+            inputs[i].value = '';
+        }
+
+        tbody.appendChild(newRow);
+    }
+
+    function deleteRow3(button) {
+        var row = button.parentNode.parentNode;
+
+        row.parentNode.removeChild(row);
+    }
+
+    function AddItem4(btn) {
+        var table = document.getElementById('SponsorTable');
+        var tbody = table.getElementsByTagName('tbody')[0];
+        var rows = tbody.getElementsByTagName('tr');
+        var lastRow = rows[rows.length - 1];
+        var newRow = lastRow.cloneNode(true);
+        var inputs = newRow.getElementsByTagName('input');
+
+        var nextrowIdx = rows.length;
+
+        for (var i = 0; i < inputs.length; i++) {
+            var id = inputs[i].id;
+            var name = inputs[i].name;
+
+            id = id.replace('_' + (nextrowIdx - 1) + '_', '_' + nextrowIdx + '_');
+            name = name.replace('[' + (nextrowIdx - 1) + ']', '[' + nextrowIdx + ']');
+
+            inputs[i].id = id;
+            inputs[i].name = name;
+            inputs[i].value = '';
+        }
+
+        tbody.appendChild(newRow);
+    }
+
+    function deleteRow4(button) {
+        var row = button.parentNode.parentNode;
+
+        row.parentNode.removeChild(row);
+    }
+</script>

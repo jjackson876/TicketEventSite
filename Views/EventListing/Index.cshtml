@@ -1,0 +1,86 @@
+﻿@model IEnumerable<EventsClients.Models.EvHeader>
+
+@{
+    ViewData["Title"] = "All Listings";
+}
+
+<h1>All Listings</h1>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventLocation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventDesc)
+            </th>
+            <th>
+                Promo Image
+            </th>
+            <th>
+                Promo Image 2
+            </th>
+            <th>
+                Promo Image 3
+            </th>
+            <th>
+                Permit
+            </th>
+            <th>
+                <a asp-action="Create" class="btn btn-sm btn-outline-success"><i class="fa-solid fa-plus"></i></a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventLocation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventDesc)
+                </td>
+                <td width="10%">
+                    <a href="@item.PromoImage" target="_blank">View</a>
+                </td>
+                <td width="10%">
+                    <a href="@item.PromoImage2" target="_blank">View</a>
+                </td>
+                <td width="10%">
+                    <a href="@item.PromoImage3" target="_blank">View</a>
+                </td>
+                <td width="10%">
+                    <a href="@item.Permit" target="_blank">View</a>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

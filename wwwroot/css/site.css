@@ -1,0 +1,318 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    background-color: #000E3D;
+    margin-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #FFF58C;
+}
+
+.centered-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+
+.carousel-item {
+    height: 400px;
+    width: 100vw;
+}
+
+.carousel-inner img {
+    object-fit: cover;
+    height: 100%; /* Ensure the image covers the entire height of the .carousel-item */
+    width: 100%; /* Ensure the image covers the entire width of the .carousel-item */
+}
+
+.overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    width: 80%;
+}
+
+.my-carousel .carousel-item {
+    height: auto;
+    width: 500px;
+    object-fit: cover;
+}
+
+.payment-block {
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
+.content-container {
+    padding: 20px;
+}
+
+.jumbotron {
+    background: url('https://images.unsplash.com/photo-1459749411175-04bf5292ceea?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat;
+    background-size: cover;
+    background-position: 50% 75%;
+    color: #fff; /* Set text color to white for better visibility */
+    text-align: center;
+    padding: 100px 0; /* Adjust padding as needed */
+}
+
+.display-4 {
+    background-color: rgba(169, 169, 169, 0.3);
+    padding: 10px;
+    margin: 0px 400px;
+}
+
+.lead {
+    background-color: rgba(169, 169, 169, 0.3);
+    padding: 10px;
+    margin: 0px 400px;
+}
+
+/*.second-container {
+    background-color: aqua;
+    height: 100px;
+    width: stretch;
+}*/
+
+.second-section {
+    background-image: url(https://img.freepik.com/free-photo/back-view-excited-audience-with-arms-raised-cheering-front-stage-music-concert-copy-space_637285-538.jpg?w=826&t=st=1701275031~exp=1701275631~hmac=9d525a7cc16e8fa60e8234d731e1c4adf966add2f35c704b6f828b08f60d7239);
+    padding: 30px;
+    height: 50;
+    background-size: cover;
+    background-position: center;
+}
+
+/*.container-fluid {
+    flex: 1;
+}*/
+
+.footer {
+    border-top: 1px solid #e5e5e5;
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: auto;
+}
+
+
+/*footer stuff*/
+
+ul {
+    margin: 0px;
+    padding: 0px;
+}
+
+.footer-section {
+    background: #151414;
+    position: relative;
+}
+
+.footer-cta {
+    border-bottom: 1px solid #373636;
+}
+
+.single-cta i {
+    color: #ff5e14;
+    font-size: 30px;
+    float: left;
+    margin-top: 8px;
+}
+
+.cta-text {
+    padding-left: 15px;
+    display: inline-block;
+}
+
+    .cta-text h4 {
+        color: #fff;
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 2px;
+    }
+
+    .cta-text span {
+        color: #757575;
+        font-size: 15px;
+    }
+
+.footer-content {
+    position: relative;
+    z-index: 2;
+}
+
+.footer-pattern img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 330px;
+    background-size: cover;
+    background-position: 100% 100%;
+}
+
+.footer-logo {
+    margin-bottom: 30px;
+}
+
+    .footer-logo img {
+        max-width: 200px;
+    }
+
+.footer-text p {
+    margin-bottom: 14px;
+    font-size: 14px;
+    color: #7e7e7e;
+    line-height: 28px;
+}
+
+.footer-social-icon span {
+    color: #fff;
+    display: block;
+    font-size: 20px;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 20px;
+}
+
+.footer-social-icon a {
+    color: #fff;
+    font-size: 16px;
+    margin-right: 15px;
+}
+
+.footer-social-icon i {
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    line-height: 38px;
+    border-radius: 50%;
+}
+
+.facebook-bg {
+    background: #3B5998;
+}
+
+.twitter-bg {
+    background: #55ACEE;
+}
+
+.google-bg {
+    background: #DD4B39;
+}
+
+.footer-widget-heading h3 {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+    .footer-widget-heading h3::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -15px;
+        height: 2px;
+        width: 50px;
+        background: #ff5e14;
+    }
+
+.footer-widget ul li {
+    display: inline-block;
+    float: left;
+    width: 50%;
+    margin-bottom: 12px;
+}
+
+    .footer-widget ul li a:hover {
+        color: #ff5e14;
+    }
+
+    .footer-widget ul li a {
+        color: #878787;
+        text-transform: capitalize;
+    }
+
+.subscribe-form {
+    position: relative;
+    overflow: hidden;
+}
+
+    .subscribe-form input {
+        width: 100%;
+        padding: 14px 28px;
+        background: #2E2E2E;
+        border: 1px solid #2E2E2E;
+        color: #fff;
+    }
+
+    .subscribe-form button {
+        position: absolute;
+        right: 0;
+        background: #ff5e14;
+        padding: 13px 20px;
+        border: 1px solid #ff5e14;
+        top: 0;
+    }
+
+        .subscribe-form button i {
+            color: #fff;
+            font-size: 22px;
+            transform: rotate(-6deg);
+        }
+
+.copyright-area {
+    background: #202020;
+    padding: 25px 0;
+}
+
+.copyright-text p {
+    margin: 0;
+    font-size: 14px;
+    color: #878787;
+}
+
+    .copyright-text p a {
+        color: #ff5e14;
+    }
+
+.footer-menu li {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+    .footer-menu li:hover a {
+        color: #ff5e14;
+    }
+
+    .footer-menu li a {
+        font-size: 14px;
+        color: #878787;
+    }
